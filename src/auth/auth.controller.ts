@@ -21,10 +21,12 @@ export class AuthController {
   ) {
     
     try {
-      const existedUser = await this.userService.findOneByUsernameOrEmail({
-        username: registerDto.username,
-        email: registerDto.email,
-      });
+      const existedUser = await this.userService.findOneByUsernameOrEmail(
+        {
+          username: registerDto.username,
+          email: registerDto.email,
+        }
+      );
       if (existedUser) throw new HttpException(
         'Username already taken or email already registered',
         HttpStatus.BAD_REQUEST

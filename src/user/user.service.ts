@@ -1,9 +1,20 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Repository } from "typeorm";
+import { FindOptionsSelect, Repository } from "typeorm";
 import { User } from "./entities/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
+
+const defaultUserSelectedFields: FindOptionsSelect<User> = {
+  id: true,
+  username: true,
+  email: true,
+  refreshToken: true,
+  age: true,
+  createdAt: true,
+  updatedAt: true,
+  passwordHash: false,
+}
 
 @Injectable()
 export class UserService {
@@ -24,12 +35,19 @@ export class UserService {
     return this.userRepository.findOneBy({ id });
   }
   
-  async findOneByUsernameOrEmail({ email, username } : { username: string, email: string }) {
+  async findOneByUsernameOrEmail(
+    searchByFields: { username: string, email: string },
+    selectFields: FindOptionsSelect<User> = {}
+  ) {
     return await this.userRepository.findOne({
       where: [
-        { username },
-        { email },
-      ]
+        { username: searchByFields.username },
+        { email: searchByFields.email },
+      ],
+      select: {
+        ...defaultUserSelectedFields,
+        ...selectFields
+      }
     });
   }
   
