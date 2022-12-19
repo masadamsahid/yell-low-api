@@ -77,10 +77,7 @@ export class AuthService {
       'Wrong credentials',
       HttpStatus.FORBIDDEN
     );
-    console.log(
-      { pass: loginDao.password, hash: user.passwordHash }
-    )
-    console.log({ ...user });
+    
     const compareResult = await bcrypt.compare(loginDao.password, user.passwordHash);
     if (!compareResult) throw new HttpException(
       'Wrong credentials',
@@ -89,7 +86,8 @@ export class AuthService {
     delete user.passwordHash;
     
     const access_token = await this.generateAccessToken({ ...user });
+    const refresh_token = await this.generateRefreshToken({ id: user.id });
     
-    return {access_token, user};
+    return {access_token, refresh_token, user};
   }
 }

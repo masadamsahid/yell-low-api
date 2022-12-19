@@ -1,4 +1,5 @@
-import { Controller, Post, Body, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, HttpException, HttpStatus, Res } from '@nestjs/common';
+import { Response } from "express";
 import * as bcrypt from 'bcrypt';
 
 import { AuthService } from './auth.service';
@@ -51,9 +52,18 @@ export class AuthController {
   }
   
   @Post('login')
-  login(@Body() loginDto: LoginDto) {
-    console.log('login')
-    return this.authService.login(loginDto);
+  async login(@Body() loginDto: LoginDto, @Res({ passthrough: true }) res: Response) {
+    try {
+      const { access_token, refresh_token, user } = await this.authService.login(loginDto);
+      
+      res.cookie('access_token', access_token, { httpOnly: true });
+      res.cookie('refresh_token', refresh_token, { httpOnly: true });
+      
+      res.status(HttpStatus.OK).send(user);
+      return;
+    } catch (err) {
+      throw err;
+    }
   }
   
 }
