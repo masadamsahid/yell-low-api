@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 
 
-import { User } from "../user/entities/user.entity";
+import { User } from "../entities/user.entity";
 import { Repository } from "typeorm";
 import { RegisterDao } from "./dao/register.dao";
 import { LoginDao } from "./dao/login.dao";
