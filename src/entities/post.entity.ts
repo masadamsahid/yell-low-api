@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity";
 import { PostType } from "./post-type.entity";
 
@@ -23,12 +23,14 @@ export class Post {
     () => User,
     (user) => user.posts
   )
+  @JoinColumn({ name: 'owner_id' })
   owner: User;
   
   @ManyToOne(
     () => PostType,
     (postType) => postType.posts
   )
+  @JoinColumn({ name: 'post_type_id' })
   postType: PostType;
   
 }
