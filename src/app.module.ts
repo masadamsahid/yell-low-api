@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { PostTypesModule } from './post-types/post-types.module';
+import { UserRolesModule } from './user-roles/user-roles.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { PostTypesModule } from './post-types/post-types.module';
     AuthModule,
     PostsModule,
     PostTypesModule,
+    UserRolesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

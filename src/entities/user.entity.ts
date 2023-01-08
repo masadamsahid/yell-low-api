@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Post } from "./post.entity";
+import { UserRole } from "./user-role.entity";
 
 @Entity({ name: 'users' })
 export class User {
@@ -26,6 +27,13 @@ export class User {
     (post) => post.owner
   )
   posts: Post[];
+  
+  @ManyToMany(
+    () => UserRole,
+    (userRole) => userRole.users
+  )
+  @JoinTable({ name: 'user_to_user_role' })
+  roles: UserRole[];
   
   @CreateDateColumn()
   createdAt: Date;
