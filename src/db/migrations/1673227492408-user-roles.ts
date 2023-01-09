@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm"
+import { MigrationInterface, QueryRunner, Table, } from "typeorm"
 
 export class userRoles1673227492408 implements MigrationInterface {
   private tableName = 'user_roles'
@@ -16,18 +16,18 @@ export class userRoles1673227492408 implements MigrationInterface {
           },
           {
             name: 'name',
-            type: 'string',
+            type: 'varchar(255)',
             isNullable: false,
           },
           {
             name: 'createdAt',
-            type: 'timestamp',
-            default: 'now()'
+            type: 'datetime',
+            default: 'CURRENT_TIMESTAMP'
           },
           {
             name: 'updatedAt',
-            type: 'timestamp',
-            default: 'now()'
+            type: 'datetime',
+            default: 'CURRENT_TIMESTAMP'
           }
         ],
       })
