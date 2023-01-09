@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreatePostTypeDto } from './dto/create-post-type.dto';
 import { UpdatePostTypeDto } from './dto/update-post-type.dto';
 import { InjectRepository } from "@nestjs/typeorm";
-import { PostType } from "../entities/post-type.entity";
+import { PostType } from "../db/entities/post-type.entity";
 import { Repository } from "typeorm";
 
 @Injectable()
