@@ -1,6 +1,7 @@
 import { DataSource, DataSourceOptions } from "typeorm";
 
 import * as dotenv from 'dotenv';
+import { userRoles1673227492408 } from "./migrations/1673227492408-user-roles";
 dotenv.config()
 
 export const dataSourceOptions: DataSourceOptions = {
@@ -11,7 +12,7 @@ export const dataSourceOptions: DataSourceOptions = {
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
   entities: ['dist/src/db/**/*.entity{.ts,.js}'],
-  migrations: ['dist/src/db/migrations/**/*.{.ts,.js}'],
+  migrations: [userRoles1673227492408],
   migrationsTableName: 'migrations_table',
   // synchronize: true,
 }
